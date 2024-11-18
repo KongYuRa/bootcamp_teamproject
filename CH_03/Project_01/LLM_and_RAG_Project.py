@@ -34,7 +34,7 @@ docs = loader.load()
 #print(docs)
 
 
-# 4. 문서 청크로 나누기
+# 4. 문서 청크로 나누기 (사용X)
 # # 4-1. CharacterTextSplitter
 # from langchain.text_splitter import CharacterTextSplitter # 문서를 개별 문자 단위로 나누기
 
@@ -51,7 +51,7 @@ docs = loader.load()
 
 
 # 4-2. RecursiveCharacterTextSplitter (시용)
-from langchain.text_splitter import RecursiveCharacterTextSplitter  #텍스트를 재귀적으로 분할 (자신을 재서용하여 정의)
+from langchain.text_splitter import RecursiveCharacterTextSplitter  #텍스트를 재귀적으로 분할 (자신을 재사용하여 정의)
 
 recursive_text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=100,             # 각 청크의 최대 길이(최대 100자)
@@ -116,6 +116,7 @@ class DebugPassThrough(RunnablePassthrough):
         output = super().invoke(*args, **kwargs)
         print("Debug Output:", output)
         return output
+    
 # 문서 리스트를 텍스트로 변환하는 단계 추가
 class ContextToText(RunnablePassthrough):
     def invoke(self, inputs, config=None, **kwargs):  # config 인수 추가
@@ -139,6 +140,8 @@ while True:
 	print("Final Response:")
 	print(response.content)
 
-# 질문을 했을 때 pdf의 자료를 취합하여 답변을 주게 되는데, 간혹 답이 명확하지 않을 수 있습니다.
-# GAG 기술을 사용한다면 최신 자료들을 제공해줄 수 있고, 정확한 자료를 주기 때문에 양질의 답을 얻을 수 있습니다.(더 구체적인 답)
+
+
+# 질문을 했을 때 pdf의 자료를 취합하여 답변을 주게 되는데, 한정되어 있기 때문에 답이 명확하지 않을 수 있습니다.
+# RAG 기술을 사용한다면 최신 자료들을 제공해줄 수 있고, 정확한 자료를 주기 때문에 양질의 답을 얻을 수 있습니다.(더 구체적인 답)
 
